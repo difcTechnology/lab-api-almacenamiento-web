@@ -1,0 +1,74 @@
+<<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVOCA TU POKEMON</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+    <div class="container py-5">
+
+        <h1 class="text-center mb-4 text-danger">
+            INVOCA TU POKEMON
+        </h1>
+
+        <!-- Buscador -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input
+                        type="text"
+                        id="pokemonInput"
+                        class="form-control"
+                        placeholder="Escribe un Pokémon (ej: pikachu)"
+                    >
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="searchPokemon()">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultado de búsqueda -->
+        <div class="text-center mb-4">
+            <button
+                class="btn btn-success"
+                onclick="saveFavorite()">
+                Guardar en Favoritos
+            </button>
+        </div>
+
+        <div class="row justify-content-center mb-5">
+            <div id="resultado" class="col-md-4">
+                <!-- Aquí aparece el Pokémon buscado -->
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Favoritos -->
+        <h2 class="text-center my-4">
+            ⭐ Mis Pokémon Favoritos
+        </h2>
+
+        <div
+            id="favoritos"
+            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <!-- Aquí se agregan las tarjetas -->
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
