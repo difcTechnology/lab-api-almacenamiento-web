@@ -1,42 +1,38 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INVOCA TU POKEMON</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-light">
 
-    <nav class="navbar navbar-custom">
-    <div class="container justify-content-center">
-        <span class="navbar-brand pokemon-logo">
-            ⚡ Tus pokemones Favoritos ⚡
-        </span>
-    </div>
-</nav>
+    <nav class="navbar navbar-custom bg-danger navbar-dark mb-4">
+        <div class="container justify-content-center">
+            <span class="navbar-brand fw-bold">
+                ⚡ Tus Pokémon Favoritos ⚡
+            </span>
+        </div>
+    </nav>
 
-    <div class="container py-5">
+    <div class="container py-4">
 
-        <h1 class="text-center mb-4 text-danger">
-            INVOCA TU POKEMON
+        <h1 class="text-center mb-4 text-danger fw-bold">
+            INVOCA TU POKÉMON
         </h1>
 
-        <!-- Buscador -->
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-6">
+        <div class="row justify-content-center mb-4 g-2">
+            <div class="col-md-6 col-12">
                 <div class="input-group">
                     <input
                         type="text"
-                        id="pokemonInput"
+                        id="pokemon"
                         class="form-control"
                         placeholder="Escribe un Pokémon (ej: pikachu)"
                     >
-
                     <button
                         class="btn btn-primary"
                         onclick="searchPokemon()">
@@ -44,39 +40,33 @@
                     </button>
                 </div>
             </div>
-        </div>
-
-        <!-- Resultado de búsqueda -->
-        <div class="text-center mb-4">
-            <button
-                class="btn btn-success"
-                onclick="saveFavorite()">
-                Guardar en Favoritos
-            </button>
-        </div>
-
-        <div class="row justify-content-center mb-5">
-            <div id="resultado" class="col-md-4">
-                <!-- Aquí aparece el Pokémon buscado -->
+            <div class="col-md-2 col-12 text-center">
+                <button
+                    class="btn btn-success w-100"
+                    onclick="saveFavorite()">
+                    ⭐ Guardar
+                </button>
             </div>
         </div>
 
-        <hr>
+        <div class="row justify-content-center mb-5">
+            <div id="resultado" class="col-md-4 col-sm-6 col-12">
+                </div>
+        </div>
 
-        <!-- Favoritos -->
-        <h2 class="text-center my-4">
+        <hr class="my-5">
+
+        <h2 class="text-center my-4 fw-bold text-secondary">
             ⭐ Mis Pokémon Favoritos
         </h2>
 
         <div
             id="favoritos"
-            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            <!-- Aquí se agregan las tarjetas -->
-        </div>
+            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 pb-5">
+            </div>
 
     </div>
 
-    <script src="script.js"></script>
-
+    <script src="app.js"></script>
 </body>
 </html>

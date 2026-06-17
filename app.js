@@ -1,9 +1,12 @@
 
-
-let pokemon = null;
+let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+let pokemonActual = null;
 
 async function searchPokemon() {
-  const nombrePokemon = document.getElementById("pokemon").value;
+  const nombrePokemon = document.getElementById("pokemon").value.trim();
+  const contenedorResultado = document.getElementById("resultado");
+
+  if (!nombrePokemon) return;
 
   try {
     const response = await fetch(
@@ -16,79 +19,81 @@ async function searchPokemon() {
 
     const data = await response.json();
 
-    pokemon = {
-      nombre: data.name,
-      sprite: data.sprites.front_default,
+    
+    pokemonActual = {
+      id: data.id,
+      nombre: data.name.toUpperCase(),
+      imagen: data.sprites.front_default,
     };
+    
+    
+    contenedorResultado.innerHTML = `
+      <div class="card text-center shadow-sm">
+        <img src="${pokemonActual.imagen}" class="card-img-top bg-light" alt="${pokemonActual.nombre}">
+        <div class="card-body">
+          <h5 class="card-title">${pokemonActual.nombre}</h5>
+          <p class="card-text">Nº ${pokemonActual.id}</p>
+        </div>
+      </div>
+    `;
 
-    document.getElementById("nombre").textContent = data.name;
-    document.getElementById("sprite").src = data.sprites.front_default;
   } catch (error) {
-    document.getElementById("nombre").textContent = error.message;
-    document.getElementById("sprite").src = "";
+    contenedorResultado.innerHTML = `
+      <div class="alert alert-danger text-center" role="alert">
+        ${error.message}
+      </div>
+    `;
+    pokemonActual = null;
   }
 }
 
-let pokemon = [];
-
-let favoritos = JSON.parse(localStorage.getItem('favoritos'));
-
-function saveFavorite(){
-
-    if(pokemon != undefined){
-        if(favoritos == null){
-            localStorage.setItem('favoritos', JSON.stringify(favoritos));
-        }else{
-            //agregar favorito
-            favorito = buscarFavorito(id);
-            if(favorito == null){
-                favoritos.push(objeto);        
-            }
-        }
+function saveFavorite() {
+    
+    if (!pokemonActual) {
+        alert("Primero busca un Pokémon válido.");
+        return;
     }
 
-    updateFavoriteList();
+    
+    const existe = buscarFavorito(pokemonActual.id);
+
+    if (!existe) {
+        favoritos.push(pokemonActual);
+        localStorage.setItem('favoritos', JSON.stringify(favoritos));
+        updateFavoritesList(); // Nombre corregido en plural
+    } else {
+        alert("Este Pokémon ya está en tus favoritos.");
+    }
 }   
 
-function buscarFavorito(id){
-    let favoritoEncontrado = null;
-    if(favoritos != null){
-        for (let favorito of favoritos){
-            if(favorito.id === id){
-                favoritoEncontrado = favorito;
-            }
-        }
-    }
-     return favoritoEncontrado;       
+function buscarFavorito(id) {
+    return favoritos.find(fav => fav.id === id) || null;
 }
-
-let pokemon = [];
-let favoritos = [];
 
 function updateFavoritesList() {
-
-    const favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
-
     const contenedor = document.getElementById("favoritos");
-
     contenedor.innerHTML = "";
 
-    favorito.forEach( pokemon => {
-        const card = document.createElement("div");
-        card.classList.add("pokemon-favorito");
+    
+    favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
-        card.innerHTML = `
-            <img src = "${pokemon.imagen}" alt = "${pokemon.nombre}">
-            <h3> ${pokemon.nombre}</h3>
-        `
+    favoritos.forEach(pokemon => {
+        const col = document.createElement("div");
+        col.classList.add("col");
 
-
+        col.innerHTML = `
+            <div class="card h-100 text-center shadow-sm">
+                <img src="${pokemon.imagen}" class="card-img-top bg-light" alt="${pokemon.nombre}">
+                <div class="card-body">
+                    <h5 class="card-title text-capitalize">${pokemon.nombre.toLowerCase()}</h5>
+                </div>
+            </div>
+        `;
+        contenedor.appendChild(col); 
     });
-
-    contenedor.appendChild(card);
-
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     updateFavoritesList();
-})
+});
