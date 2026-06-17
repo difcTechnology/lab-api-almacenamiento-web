@@ -60,7 +60,7 @@ function saveFavorite() {
     if (!existe) {
         favoritos.push(pokemonActual);
         localStorage.setItem('favoritos', JSON.stringify(favoritos));
-        updateFavoritesList(); // Nombre corregido en plural
+        updateFavoritesList(); 
     } else {
         alert("Este Pokémon ya está en tus favoritos.");
     }
